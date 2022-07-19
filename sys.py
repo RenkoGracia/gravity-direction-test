@@ -35,7 +35,7 @@ for i in range (10):
  mark = visual.ShapeStim(win=win,size=0.03,vertices='circle',
  pos=[vx*vy/10*math.cos(r0)-(vy*vy/10-5*(vy/10)**2)*math.sin(r0)+0.8*math.cos(r2),
      vx*vy/10*math.sin(r0)+(vy*vy/10-5*(vy/10)**2)*math.cos(r0)+0.8*math.sin(r2)],
-     lineColor=(255,0,255),fillColor=(255,0,255))
+     lineColor=(0,255,255),fillColor=(255,0,255))
  #three marks definations
  t=0
  #trial loop
