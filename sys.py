@@ -11,11 +11,11 @@ d2=d0-180 #start compensation degree
 r0=math.radians(d0)
 r1=math.radians(d1)
 r2=math.radians(d2) #degree to radians transformation
-limit=0.5 #time duration
+limit=0.4 #time duration
 transition=(-0.5*math.cos(r0),+0.5*math.sin(r0)) #start transition offset
 for i in range (10):
- vx=3#random.randint(0,300)/100
- vy=3#random.randint(0,300)/100 #randomrize initial velocity
+ vx=random.randint(30,300)/100
+ vy=random.randint(30,300)/100 #randomrize initial velocity
  polygon = visual.ShapeStim(win=win,size=0.03,vertices='circle',lineColor=(0,255,255),fillColor=(0,255,255))
  #stimuli defination
  border = visual.ShapeStim(win=win,size=2,vertices='circle',lineColor=(255,0,255))
