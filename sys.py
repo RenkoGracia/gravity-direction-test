@@ -6,10 +6,10 @@ import random
 import math
 file = open("D:\Text.txt","a")
 win = visual.Window(units='pix',size=(1920, 1080),fullscr=1, screen=1,color='black')
-d0=random.randint(-90,90)#0 #gravity degree
+d0=random.randint(-1,4)*60 #gravity degree
 file.write(str(d0-90)+'\n')
 d1=-90 #calibration degree
-d2=d0-180 #start compensation degree
+d2=d0+90 #start compensation degree
 r0=math.radians(d0)
 r1=math.radians(d1)
 r2=math.radians(d2) #degree to radians transformation
@@ -18,8 +18,8 @@ transition=(-250*math.cos(r0),+250*math.sin(r0)) #start transition offset
 g=10*500
 h=0.5*g
 for i in range (10):
- vx=random.randint(500,1500)
- vy=random.randint(500,1500)
+ vx=(random.randint(0,1)*2-1)*random.randint(500,1000)
+ vy=0#-random.randint(500,1000)
  #randomrize initial velocity
  polygon = visual.ShapeStim(win=win,size=15,vertices='circle',lineColor=(0,255,255),fillColor=(0,255,255))
  #stimuli defination
@@ -46,6 +46,7 @@ for i in range (10):
     border.draw()
     if event.getKeys('escape'):
      win.close()
+     file.write('\n')
     start.draw()
     if event.getKeys('left'):
      d1=d1-1
