@@ -4,6 +4,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 import math
+from psychopy.hardware import joystick
+joystick.backend='pygame'
+joy = joystick.XboxController(0)
 file = open("D:\Text.txt","a")
 win = visual.Window(units='pix',size=(1920, 1080),fullscr=1, screen=1,color='black')
 d0=random.randint(-1,4)*60 #gravity degree
@@ -40,7 +43,7 @@ for i in range (10):
      vx*vy/g*math.sin(r0)+(vy*vy/g-h*(vy/g)**2)*math.cos(r0)+400*math.sin(r2)],
      lineColor=(0,255,255),fillColor=(255,0,255))
  #three marks definations
- t=0
+ t=-0.2
  #trial loop
  while True:
     border.draw()
@@ -48,26 +51,60 @@ for i in range (10):
      win.close()
      file.write('\n')
     start.draw()
-    if event.getKeys('left'):
-     d1=d1-1
-     r1=math.radians(d1)
-     polygon1.pos=(500*math.cos(r1),500*math.sin(r1))
-    if event.getKeys('right'):
-     d1=d1+1
-     r1=math.radians(d1)
-     polygon1.pos=(500*math.cos(r1),500*math.sin(r1))
+    if joy.get_x():
+      d1=d1-1
+      r1=math.radians(d1)
+      polygon1.pos=(500*math.cos(r1),500*math.sin(r1))
+    if joy.get_b():
+      d1=d1+1
+      r1=math.radians(d1)
+      polygon1.pos=(500*math.cos(r1),500*math.sin(r1))
+#    if event.getKeys('h'):
+      d1=d1-5
+      r1=math.radians(d1)
+      polygon1.pos=(500*math.cos(r1),500*math.sin(r1))
+#    if event.getKeys('n'):
+      d1=d1+5
+      r1=math.radians(d1)
+      polygon1.pos=(500*math.cos(r1),500*math.sin(r1))
+#    if event.getKeys('g'):
+      d1=d1-25
+      r1=math.radians(d1)
+      polygon1.pos=(500*math.cos(r1),500*math.sin(r1))
+#    if event.getKeys('b'):
+      d1=d1+25
+      r1=math.radians(d1)
+      polygon1.pos=(500*math.cos(r1),500*math.sin(r1))
+#    if event.getKeys('f'):
+      d1=d1-125
+      r1=math.radians(d1)
+      polygon1.pos=(500*math.cos(r1),500*math.sin(r1))
+#    if event.getKeys('v'):
+      d1=d1+125
+      r1=math.radians(d1)
+      polygon1.pos=(500*math.cos(r1),500*math.sin(r1))
     if event.getKeys('space'):
-     file.write(str(d1)+' ')
-     break
+      while d1>180:
+       d1=d1-360
+      while d1<-180:
+       d1=d1+360
+      file.write(str(d1)+' ')
+      break
     #if vy-g*t<=0:
      #polygon.fillColor=(255,0,255)
      #polygon.lineColor=(255,0,255)
      #mark.draw()
-    if t<limit:
+    if 0>t:
+     polygon.pos = (vx*vy*math.cos(r2)/g,vx*vy*math.sin(r2)/g)
+     polygon.draw()
+    if 0<t<limit:
      t =0.001+t
      polygon.pos = (vx*t*math.cos(r0)-(vy*t-h*t**2)*math.sin(r0)+400*math.cos(r2),
      vx*t*math.sin(r0)+(vy*t-h*t**2)*math.cos(r0)+400*math.sin(r2))
      polygon.draw()
+    if 0.41>t>limit:
+     end.draw()
+    t =0.001+t
     polygon0.draw()
     polygon1.draw()
     win.flip()
