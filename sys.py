@@ -4,11 +4,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 import math
-from psychopy.hardware import joystick
-joystick.backend='pygame'
-joy = joystick.XboxController(0)
 file = open("D:\Text.txt","a")
 win = visual.Window(units='pix',size=(1920, 1080),fullscr=1, screen=1,color='black')
+win.mouseVisible=False
 d0=random.randint(-1,4)*60 #gravity degree
 file.write(str(d0-90)+'\n')
 d1=-90 #calibration degree
@@ -47,42 +45,20 @@ for i in range (10):
  #trial loop
  while True:
     border.draw()
+    start.draw()
     if event.getKeys('escape'):
      win.close()
      file.write('\n')
-    start.draw()
-    if joy.get_x():
+    if event.mouseWheelRel[1]<0:
       d1=d1-1
       r1=math.radians(d1)
       polygon1.pos=(500*math.cos(r1),500*math.sin(r1))
-    if joy.get_b():
+      event.mouseWheelRel[1]=0
+    if event.mouseWheelRel[1]>0:
       d1=d1+1
       r1=math.radians(d1)
       polygon1.pos=(500*math.cos(r1),500*math.sin(r1))
-#    if event.getKeys('h'):
-      d1=d1-5
-      r1=math.radians(d1)
-      polygon1.pos=(500*math.cos(r1),500*math.sin(r1))
-#    if event.getKeys('n'):
-      d1=d1+5
-      r1=math.radians(d1)
-      polygon1.pos=(500*math.cos(r1),500*math.sin(r1))
-#    if event.getKeys('g'):
-      d1=d1-25
-      r1=math.radians(d1)
-      polygon1.pos=(500*math.cos(r1),500*math.sin(r1))
-#    if event.getKeys('b'):
-      d1=d1+25
-      r1=math.radians(d1)
-      polygon1.pos=(500*math.cos(r1),500*math.sin(r1))
-#    if event.getKeys('f'):
-      d1=d1-125
-      r1=math.radians(d1)
-      polygon1.pos=(500*math.cos(r1),500*math.sin(r1))
-#    if event.getKeys('v'):
-      d1=d1+125
-      r1=math.radians(d1)
-      polygon1.pos=(500*math.cos(r1),500*math.sin(r1))
+      event.mouseWheelRel[1]=0
     if event.getKeys('space'):
       while d1>180:
        d1=d1-360
