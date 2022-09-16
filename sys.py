@@ -7,20 +7,21 @@ import math
 file = open("D:\Text.txt","a")
 win = visual.Window(units='pix',size=(1920, 1080),fullscr=1, screen=1,color='black')
 win.mouseVisible=False
-d0=random.randint(-1,4)*60 #gravity degree
+d0=0#random.randint(-1,4)*60 #gravity degree
 file.write(str(d0-90)+'\n')
 d1=-90 #calibration degree
 d2=d0+90 #start compensation degree
 r0=math.radians(d0)
 r1=math.radians(d1)
 r2=math.radians(d2) #degree to radians transformation
-limit=0.4 #time duration
+limit=0.3 #time duration
 transition=(-250*math.cos(r0),+250*math.sin(r0)) #start transition offset
-g=10*500
+g=7050
 h=0.5*g
 for i in range (10):
- vx=(random.randint(0,1)*2-1)*random.randint(500,1000)
- vy=0#-random.randint(500,1000)
+ vx=(random.randint(0,1)*2-1)*random.randint(400,1500)
+ vy=random.randint(int(1.6*abs(vx))-1800,int(-1.5*abs(vx))+3800)
+ print(vx,vy)
  #randomrize initial velocity
  polygon = visual.ShapeStim(win=win,size=15,vertices='circle',lineColor=(0,255,255),fillColor=(0,255,255))
  #stimuli defination
@@ -33,15 +34,11 @@ for i in range (10):
  start= visual.ShapeStim(win=win,size=15,vertices='circle',
  pos=[0,0],lineColor=(0,255,255),fillColor=(0,255,255))
  end= visual.ShapeStim(win=win,size=15,vertices='circle',
- pos=[vx*limit*math.cos(r0)-(vy*limit-h*limit**2)*math.sin(r0)+400*math.cos(r2),
-     vx*limit*math.sin(r0)+(vy*limit-h*limit**2)*math.cos(r0)+400*math.sin(r2)],
-     lineColor=(255,0,255),fillColor=(255,0,255))
- mark = visual.ShapeStim(win=win,size=15,vertices='circle',
- pos=[vx*vy/g*math.cos(r0)-(vy*vy/g-h*(vy/g)**2)*math.sin(r0)+400*math.cos(r2),
-     vx*vy/g*math.sin(r0)+(vy*vy/g-h*(vy/g)**2)*math.cos(r0)+400*math.sin(r2)],
-     lineColor=(0,255,255),fillColor=(255,0,255))
+ pos=[vx*limit*math.cos(r0)-(vy*limit-h*limit**2)*math.sin(r0)-vx*vy*math.cos(r0)/g+(0.15*vy-0.15*vx-120)*math.sin(r0),
+     vx*limit*math.sin(r0)+(vy*limit-h*limit**2)*math.cos(r0)-vx*vy*math.sin(r0)/g-(0.15*vy-0.15*vx-120)*math.cos(r0)],
+     lineColor=(0,255,255),fillColor=(0,255,255))
  #three marks definations
- t=-0.2
+ t=-0.1
  #trial loop
  while True:
     border.draw()
@@ -71,14 +68,14 @@ for i in range (10):
      #polygon.lineColor=(255,0,255)
      #mark.draw()
     if 0>t:
-     polygon.pos = (vx*vy*math.cos(r2)/g,vx*vy*math.sin(r2)/g)
+     polygon.pos = (-vx*vy*math.cos(r0)/g+(0.15*vy-0.15*vx-120)*math.sin(r0),-vx*vy*math.sin(r0)/g-(0.15*vy-0.15*vx-120)*math.cos(r0))
      polygon.draw()
     if 0<t<limit:
      t =0.001+t
-     polygon.pos = (vx*t*math.cos(r0)-(vy*t-h*t**2)*math.sin(r0)+400*math.cos(r2),
-     vx*t*math.sin(r0)+(vy*t-h*t**2)*math.cos(r0)+400*math.sin(r2))
+     polygon.pos = (vx*t*math.cos(r0)-(vy*t-h*t**2)*math.sin(r0)-vx*vy*math.cos(r0)/g+(0.15*vy-0.15*vx-120)*math.sin(r0),
+     vx*t*math.sin(r0)+(vy*t-h*t**2)*math.cos(r0)-vx*vy*math.sin(r0)/g-(0.15*vy-0.15*vx-120)*math.cos(r0))
      polygon.draw()
-    if 0.41>t>limit:
+    if 0.31>t>limit:
      end.draw()
     t =0.001+t
     polygon0.draw()
