@@ -7,8 +7,12 @@ import math
 file = open("D:\Text.txt","a")
 win = visual.Window(units='pix',size=(1920, 1080),fullscr=1, screen=1,color='black')
 win.mouseVisible=False
-for j in range (20):
- d0=j*18#random.randint(-1,4)*60 #gravity degree
+for j in range (16):
+ d0=j*157.5#random.randint(-1,4)*60 #gravity degree
+ while d0>270:
+       d0=d0-360
+ while d0<=-90:
+       d0=d0+360
  file.write(str(d0-90)+'\n')
  d1=-90 #calibration degree
  d2=d0+90 #start compensation degree
@@ -20,7 +24,7 @@ for j in range (20):
  g=7050
  h=0.5*g
  for i in range (10):
-  vx=(random.randint(0,1)*2-1)*random.randint(400,1500)
+  vx=(random.randint(0,1)*2-1)*random.randint(200,800)
   vy=random.randint(int(1.6*abs(vx))-1800,int(-1.5*abs(vx))+3800)
   print(vx,vy)
  #randomrize initial velocity
@@ -59,9 +63,9 @@ for j in range (20):
       event.mouseWheelRel[1]=0
     if event.mouseButtons[0]==1:
       event.mouseButtons[0]=0
-      while d1>180:
+      while d1-d0>90:
        d1=d1-360
-      while d1<-180:
+      while d1-d0<-270:
        d1=d1+360
       file.write(str(d1)+',')
       break
@@ -87,5 +91,3 @@ for j in range (20):
  file.write('\n')
 win.close()
 core.quit()
-
-
