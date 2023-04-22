@@ -8,8 +8,8 @@ objnum=10
 file = open("D:\Text.txt","a")
 win = visual.Window(units='pix',size=(1920, 1080),fullscr=1, screen=1,color='black')
 win.mouseVisible=False
-for j in range (16):
- d0=j*150+15#random.randint(-1,4)*60 #gravity degree
+for j in range (24):
+ d0=j*?#random.randint(-1,4)*60 #gravity degree
  while d0>270:
        d0=d0-360
  while d0<=-90:
