@@ -43,9 +43,10 @@ for j in range (16):
      vx*limit*math.sin(r0)+(vy*limit-h*limit**2)*math.cos(r0)-vx*vy*math.sin(r0)/g-(0.15*vy-0.15*vx-120)*math.cos(r0)],
      lineColor=(0,255,255),fillColor=(0,255,255))
  #three marks definations
-  t=-0.1
+  timer = core.CountdownTimer(0.32)
  #trial loop
-  while True:
+  while 0.32-timer.getTime()>0:
+    t=0.31-timer.getTime()
     border.draw()
     start.draw()
     if event.getKeys('escape'):
@@ -77,13 +78,11 @@ for j in range (16):
      polygon.pos = (-vx*vy*math.cos(r0)/g+(0.15*vy-0.15*vx-120)*math.sin(r0),-vx*vy*math.sin(r0)/g-(0.15*vy-0.15*vx-120)*math.cos(r0))
      polygon.draw()
     if 0<t<limit:
-     t =0.001+t
      polygon.pos = (vx*t*math.cos(r0)-(vy*t-h*t**2)*math.sin(r0)-vx*vy*math.cos(r0)/g+(0.15*vy-0.15*vx-120)*math.sin(r0),
      vx*t*math.sin(r0)+(vy*t-h*t**2)*math.cos(r0)-vx*vy*math.sin(r0)/g-(0.15*vy-0.15*vx-120)*math.cos(r0))
      polygon.draw()
     if 0.31>t>limit:
      end.draw()
-    t =0.001+t
     polygon0.draw()
     polygon1.draw()
     win.flip()
