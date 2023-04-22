@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import random
 import math
 objnum=10
-useframe=True
 file = open("D:\Text.txt","a")
 win = visual.Window(units='pix',size=(1920, 1080),fullscr=1, screen=1,color='black')
 win.mouseVisible=False
@@ -25,7 +24,7 @@ for j in range (16):
  #time duration
  g=7050
  h=0.5*g
- for i in range (10):
+ for i in range (30):
   stimuli=[]
   v=[]
   start=[]
@@ -55,9 +54,9 @@ for j in range (16):
   start= visual.ShapeStim(win=win,size=15,vertices='circle',
   pos=[0,0],lineColor=(0,255,255),fillColor=(0,255,255))
  #trial loop
-  timer=core.CountdownTimer(0.3)
-  while 0.3-timer.getTime()>0:
-    t=0.3-timer.getTime()
+  timer=core.CountdownTimer(0.32)
+  while 0.32-timer.getTime()>0:
+    t=0.31-timer.getTime()
     border.draw()
     start.draw()
     if event.getKeys('escape'):
@@ -75,12 +74,12 @@ for j in range (16):
       event.mouseWheelRel[1]=0
     if event.mouseButtons[0]==1:
       event.mouseButtons[0]=0
-      while d1-d0>90:
-       d1=d1-360
-      while d1-d0<-270:
-       d1=d1+360
-      file.write(str(d1)+',')
-      timer=core.CountdownTimer(0.41)
+      if (i+1)%3==0:
+        while d1-d0>90:
+         d1=d1-360
+        while d1-d0<-270:
+         d1=d1+360
+        file.write(str(d1)+',')
       break
     if 0>t:
      for j in range(objnum):
